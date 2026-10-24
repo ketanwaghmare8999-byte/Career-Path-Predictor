@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerPathPredictor</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span class="mark">CareerPath<span class="accent">Predictor</span></span>
+    <span class="tag sans">From Skills to Career</span>
+  </div>
+  <nav class="sans" id="navArea">
+    <a onclick="scrollToId('form-section')">Get Prediction</a>
+    <a onclick="openAuthModal('login')" id="loginNavBtn">Login</a>
+    <a onclick="openAuthModal('signup')" id="signupNavBtn">Sign Up</a>
+    <span id="userGreeting" style="display:none;"></span>
+    <a onclick="logout()" id="logoutBtn" style="display:none;">Logout</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Tell us your skills,<br><em>find your best career</em>.</h1>
+    <p class="sans">This tool uses a trained Machine Learning model that looks at your skills and interests to predict which career suits you best — with a real backend, real database, and real predictions.</p>
+    <button class="btn sans" onclick="scrollToId('form-section')">Get Started →</button>
+    <span class="hint" id="serverStatus" style="display:block;margin-top:14px;"></span>
+  </div>
+  <div class="hero-panel">
+    <div class="eyebrow">How It Works</div>
+    <div class="step-row"><span class="step-num">1</span> Select your skills and interests</div>
+    <div class="step-row"><span class="step-num">2</span> A trained ML model (Random Forest) makes a prediction</div>
+    <div class="step-row"><span class="step-num">3</span> You get a match % and a skill-gap breakdown</div>
+    <div class="step-row"><span class="step-num">4</span> Give feedback — the system keeps improving</div>
+  </div>
+</section>
+
+<section id="form-section">
+  <div class="section-head">
+    <span class="num sans">01</span>
+    <h2>Fill Out Your Profile</h2>
+  </div>
+  <p class="section-sub">Tap the skills you have (at least one). Interests are optional and make the match more accurate.</p>
+
+  <div class="form-grid">
+    <div class="field" style="grid-column:1/-1">
+      <label>Your Skills</label>
+      <div class="chip-box" id="skillBox"><span class="hint">Loading skills from server...</span></div>
+      <div class="selected-count" id="skillCount">0 skills selected</div>
+    </div>
+
+    <div class="field" style="grid-column:1/-1">
+      <label>Your Interests</label>
+      <div class="chip-box" id="interestBox"><span class="hint">Loading interests from server...</span></div>
+      <div class="selected-count" id="interestCount">0 interests selected</div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn sans" id="predictBtn" onclick="predictCareers()">Predict My Career</button>
+      <button class="btn ghost sans" onclick="resetForm()">Reset</button>
+      <span class="hint" id="formWarning" style="color:var(--danger)"></span>
+    </div>
+  </div>
+</section>
+
+<section id="results" style="display:none;">
+  <div class="section-head">
+    <span class="num sans">02</span>
+    <h2>Your Best Career Matches</h2>
+  </div>
+  <p class="section-sub">These results come from a trained ML model (not random or hardcoded).</p>
+  <div id="resultCards"></div>
+</section>
+
+<!-- Auth modal -->
+<div class="modal-overlay" id="authOverlay">
+  <div class="modal sans">
+    <button class="modal-close" onclick="closeAuthModal()">×</button>
+    <h3 id="authTitle">Login</h3>
+
+    <div class="field" id="nameField" style="display:none;">
+      <label>Name</label>
+      <input type="text" id="authName" placeholder="Your name">
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="text" id="authEmail" placeholder="you@example.com">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="authPassword" placeholder="••••••••">
+    </div>
+    <div class="hint" id="authError" style="color:var(--danger);margin-bottom:10px;"></div>
+    <button class="btn sans" id="authSubmitBtn" onclick="submitAuth()" style="width:100%;">Login</button>
+    <div class="switch-line sans">
+      <span id="authSwitchText">Don't have an account?</span>
+      <a onclick="toggleAuthMode()" id="authSwitchLink">Sign Up</a>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="app.js"></script>
+</body>
+</html>
